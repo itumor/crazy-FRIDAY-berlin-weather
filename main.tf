@@ -49,8 +49,8 @@ data "aws_iam_policy_document" "bucket_policy" {
 }
 
 module "log_bucket" {
-  source = "../../"
-
+  source  = "terraform-aws-modules/s3-bucket/aws//examples/complete"
+  version = "1.15.0"
   bucket                         = "logs-${random_pet.this.id}"
   acl                            = "log-delivery-write"
   force_destroy                  = true
@@ -58,8 +58,8 @@ module "log_bucket" {
 }
 
 module "cloudfront_log_bucket" {
-  source = "../../"
-
+  source  = "terraform-aws-modules/s3-bucket/aws//examples/complete"
+  version = "1.15.0"
   bucket = "cloudfront-logs-${random_pet.this.id}"
   acl    = null # conflicts with default of `acl = "private"` so set to null to use grants
   grant = [{
@@ -77,8 +77,8 @@ module "cloudfront_log_bucket" {
 }
 
 module "s3_bucket" {
-  source = "../../"
-
+  source  = "terraform-aws-modules/s3-bucket/aws//examples/complete"
+  version = "1.15.0"
   bucket        = local.bucket_name
   acl           = "private"
   force_destroy = true
