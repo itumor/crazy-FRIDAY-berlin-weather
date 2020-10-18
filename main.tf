@@ -50,7 +50,7 @@ data "aws_iam_policy_document" "bucket_policy" {
 
 
 variable "s3_bucket_name" {
-  type    = "list"
+  type    = list(string)
   default = ["berlin-weather-daily", "berlin-weather-hourly", "berlin-weather-weekly."]
 }
 
