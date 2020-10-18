@@ -48,6 +48,24 @@ data "aws_iam_policy_document" "bucket_policy" {
   }
 }
 
+
+variable "s3_bucket_name" {
+  type    = "list"
+  default = ["berlin-weather-daily", "berlin-weather-hourly", "berlin-weather-weekly."]
+}
+
+
+module "s3_mbucket" {
+  source        = "terraform-aws-modules/s3-bucket/aws"
+  version       = "1.15.0"
+  count         = "${length(var.s3_bucket_name)}"
+  bucket        = "${random_pet.this.id}-${element(var.s3_bucket_name, count.index)}"
+  acl           = "private"
+  force_destroy = "true"
+}
+
+/*
+
 module "log_bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "1.15.0"
@@ -210,3 +228,5 @@ module "s3_bucket" {
   ignore_public_acls      = true
   restrict_public_buckets = true
 }
+
+*/
