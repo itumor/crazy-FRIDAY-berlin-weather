@@ -55,7 +55,7 @@ variable "s3_bucket_name" {
 }
 
 
-module "s3_mbucket" {
+module "s3_bucket" "multiple"{
   source        = "terraform-aws-modules/s3-bucket/aws"
   version       = "1.15.0"
   count         = "${length(var.s3_bucket_name)}"
