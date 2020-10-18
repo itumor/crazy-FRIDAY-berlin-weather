@@ -54,16 +54,16 @@ variable "s3_bucket_name" {
   default = ["berlin-weather-daily", "berlin-weather-hourly", "berlin-weather-weekly."]
 }
 
-
+  
 module "s3_bucket" {
-  source        = "terraform-aws-modules/s3-bucket/aws"
-  version       = "1.15.0"
+  source  = "terraform-aws-modules/s3-bucket/aws"
+  version = "1.15.0"
   count         = "${length(var.s3_bucket_name)}"
-  bucket        = "${random_pet.this.id}-${element(var.s3_bucket_name, count.index)}"
+  bucket        = "${random_pet.this.id}-${var.s3_bucket_name[count.index]}"
   acl           = "private"
   force_destroy = "true"
 }
-
+  
 /*
 
 module "log_bucket" {
